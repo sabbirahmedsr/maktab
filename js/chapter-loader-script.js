@@ -1,8 +1,3 @@
-/* *********************************************************
-    Module 1.0.0 : Chapter Loader
-    Description: Manages fetching and injecting chapter content into the main viewer. It also handles setting up the navigation listener.
-************************************************************ */
-
 /**
  * Fetches and loads content into the main content area based on the file path.
  * It also builds and highlights the navigation list.
@@ -29,7 +24,7 @@ export async function loadChapter(finalPath) {
             link = document.createElement('link');
             link.type = 'text/css';
             link.rel = 'stylesheet';
-            link.href = './css/letter-card-style.css';
+            link.href = './css/letter-card-style.css'; // Corrected path
             head.appendChild(link);
         }
     }
