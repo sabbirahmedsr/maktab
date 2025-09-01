@@ -1,0 +1,19 @@
+:root {
+    --bg-color-primary: #121212;
+    --bg-color-secondary: #1e1e1e;
+    --bg-color-tertiary: #2a2a2a;
+    --text-color-dark: #e0e0e0;
+    --text-color-light: #9a9a9a;
+    --heading-color-main: #ffffff;
+    --heading-color-secondary: #82c4ff;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --container-shadow: rgba(0, 0, 0, 0.5);
+    --container-shadow-hover: rgba(0, 0, 0, 0.7);
+    --accent-color-gold: #ffc107;
+    --accent-color-blue: #007bff;
+    --nav-active-bg: #212121;
+    --nav-active-border: #333333;
+    --nav-hover-bg: #282828;
+    --arabic-letter-color: #f1f1f1;
+    --card-border-color: #444444; /* New border color for dark theme */
+}

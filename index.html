@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Book</title>
+    
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        
+        .main-title {
+            font-size: 2.5em;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .chapter-card {
+            display: inline-block;
+            padding: 20px 40px;
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            border-radius: 8px;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .chapter-card:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="main-title">My Book</h1>
+    <p class="subtitle">A guide to the Arabic alphabet.</p>
+    
+    <a href="book-view.html?chapter=chapter01.html" class="chapter-card">
+        Start Reading
+    </a>
+    
+</body>
+</html>
