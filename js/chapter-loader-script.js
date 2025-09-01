@@ -1,23 +1,3 @@
-/* *********************************************************
-    Module 1.0.0 : Chapter Loader
-    Description: Manages fetching and injecting chapter content into the main viewer. It also handles setting up the navigation listener.
-************************************************************ */
-
-/**
- * Gets the base path for the repository, which is necessary for GitHub Pages.
- * @returns {string} The base path, e.g., '/maktab/'.
- */
-function getBasePath() {
-    const isLocal = window.location.hostname === 'localhost';
-    if (isLocal) {
-        return ''; // No base path needed for local development
-    } else {
-        // Return the repository name for GitHub Pages
-        const pathSegments = window.location.pathname.split('/');
-        return pathSegments.length > 1 ? `/${pathSegments[1]}` : '';
-    }
-}
-
 /**
  * Fetches and loads content into the main content area based on the file path.
  * It also builds and highlights the navigation list.
@@ -31,9 +11,7 @@ export async function loadChapter(finalPath) {
     contentArea.innerHTML = '';
     if (navList) navList.innerHTML = '';
 
-    const basePath = getBasePath();
-
-    const response = await fetch(`${basePath}/data/nav-data.json`);
+    const response = await fetch('./data/nav-data.json');
     const data = await response.json();
     
     const chapterName = finalPath.split('/').pop();
@@ -41,12 +19,12 @@ export async function loadChapter(finalPath) {
     // Dynamically load the letter card stylesheet if the chapter is the letter page.
     if (chapterName === 'all-harf.html') {
         const head = document.head;
-        let link = document.querySelector(`link[href="${basePath}/css/letter-card-style.css"]`);
+        let link = document.querySelector('link[href="./css/letter-card-style.css"]');
         if (!link) {
             link = document.createElement('link');
             link.type = 'text/css';
             link.rel = 'stylesheet';
-            link.href = `${basePath}/css/letter-card-style.css`; // Corrected to use the base path
+            link.href = './css/letter-card-style.css'; // Corrected path
             head.appendChild(link);
         }
     }
@@ -57,7 +35,7 @@ export async function loadChapter(finalPath) {
         const a = document.createElement('a');
         
         // Link to the main page with a query parameter for the chapter
-        a.href = `${basePath}/book-view.html?chapter=${item.url.split('/').pop()}`;
+        a.href = `./book-view.html?chapter=${item.url.split('/').pop()}`;
         a.textContent = item.title;
         
         // Check if the current link's URL matches the chapter path
@@ -70,7 +48,7 @@ export async function loadChapter(finalPath) {
     });
 
     try {
-        const chapterResponse = await fetch(`${basePath}/chapters/${chapterName}`);
+        const chapterResponse = await fetch(finalPath);
         if (!chapterResponse.ok) throw new Error('Page not found');
         const content = await chapterResponse.text();
         
@@ -87,6 +65,9 @@ export async function loadChapter(finalPath) {
     }
 }
 
+/**
+ * Sets up a click listener on the navigation list to handle dynamic chapter loading.
+ */
 export function setupNavigationListener() {
     const navList = document.querySelector('.nav-list');
     if (navList) {
@@ -94,7 +75,7 @@ export function setupNavigationListener() {
             const targetLink = event.target.closest('a');
             if (targetLink) {
                 event.preventDefault();
-                const chapterPath = targetLink.getAttribute('href').replace('/book-view.html?chapter=', '/chapters/');
+                const chapterPath = targetLink.getAttribute('href').replace('./book-view.html?chapter=', './chapters/');
                 loadChapter(chapterPath);
             }
         });
