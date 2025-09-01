@@ -38,6 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const initialChapter = params.get('chapter');
 
     // Load the initial chapter, defaulting to 'all-harf.html' if none is specified
-    const initialPath = initialChapter ? `/chapters/${initialChapter}` : '/chapters/all-harf.html';
+    const initialPath = initialChapter ? `./chapters/${initialChapter}` : './chapters/all-harf.html';
     loadChapter(initialPath);
 });
