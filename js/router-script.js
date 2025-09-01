@@ -10,7 +10,7 @@
 export function setupRouter(callback) {
     document.body.addEventListener('click', e => {
         // Check if the clicked element is an <a> tag and is on the same page
-        if (e.target.matches('a') && e.target.pathname === '/book-view.html') {
+        if (e.target.matches('a') && e.target.pathname === './book-view.html') {
             e.preventDefault();
             
             const newUrl = e.target.href;
