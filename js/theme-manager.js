@@ -24,7 +24,7 @@ function setActiveButton(button) {
 export function setTheme(themeName, clickedButton) {
     const themeStylesheet = document.getElementById('theme-stylesheet');
     if (themeStylesheet) {
-        themeStylesheet.href = `/css/themes/${themeName}.css`;
+        themeStylesheet.href = `./css/themes/${themeName}.css`;
         setActiveButton(clickedButton);
     }
 }
