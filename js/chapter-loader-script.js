@@ -16,7 +16,7 @@ export async function loadChapter(finalPath) {
     contentArea.innerHTML = '';
     if (navList) navList.innerHTML = '';
 
-    const response = await fetch('/data/nav-data.json');
+    const response = await fetch('./data/nav-data.json');
     const data = await response.json();
     
     const chapterName = finalPath.split('/').pop();
@@ -29,7 +29,7 @@ export async function loadChapter(finalPath) {
             link = document.createElement('link');
             link.type = 'text/css';
             link.rel = 'stylesheet';
-            link.href = '/css/letter-card-style.css';
+            link.href = './css/letter-card-style.css';
             head.appendChild(link);
         }
     }
@@ -40,7 +40,7 @@ export async function loadChapter(finalPath) {
         const a = document.createElement('a');
         
         // Link to the main page with a query parameter for the chapter
-        a.href = `/book-view.html?chapter=${item.url.split('/').pop()}`;
+        a.href = `./book-view.html?chapter=${item.url.split('/').pop()}`;
         a.textContent = item.title;
         
         // Check if the current link's URL matches the chapter path
@@ -80,7 +80,7 @@ export function setupNavigationListener() {
             const targetLink = event.target.closest('a');
             if (targetLink) {
                 event.preventDefault();
-                const chapterPath = targetLink.getAttribute('href').replace('/book-view.html?chapter=', '/chapters/');
+                const chapterPath = targetLink.getAttribute('href').replace('./book-view.html?chapter=', './chapters/');
                 loadChapter(chapterPath);
             }
         });
