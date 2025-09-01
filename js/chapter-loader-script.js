@@ -24,7 +24,7 @@ export async function loadChapter(finalPath) {
     // Dynamically load the letter card stylesheet if the chapter is the letter page.
     if (chapterName === 'all-harf.html') {
         const head = document.head;
-        let link = document.querySelector('link[href="/css/letter-card-style.css"]');
+        let link = document.querySelector('link[href="./css/letter-card-style.css"]');
         if (!link) {
             link = document.createElement('link');
             link.type = 'text/css';
