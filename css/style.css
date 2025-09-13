@@ -1,0 +1,503 @@
+/* ==========================================================================
+   1. CSS Variables & Theming
+   ========================================================================== */
+
+:root {
+    /* --- Light Theme (Default) --- */
+    --font-bengali: 'Amiri', serif;
+    --font-arabic: 'Noto Naskh Arabic', serif;
+
+    --bg-main: #fdf6e3;
+    --text-main: #583e2e;
+    --text-header: #8b4513;
+    --bg-sidebar: #004d40;
+    --text-sidebar: #fdf6e3;
+    --accent-gold-light: #f3e5ab;
+    --accent-gold-dark: #c8a464;
+    --sidebar-hover: #00695c;
+    --sidebar-separator: #00382e;
+    --bg-card: #fefae6;
+    --border-card: #e0d8c5;
+    --shadow-card: rgba(88, 62, 46, 0.1);
+    --bg-arabic-card: #fffaf0;
+}
+
+.dark-theme {
+    /* --- Dark Theme --- */
+    --bg-main: #1a1a1a;
+    --text-main: #e0e0e0;
+    --text-header: #f3e5ab;
+    --bg-sidebar: #111111;
+    --text-sidebar: #e0e0e0;
+    --accent-gold-light: #f3e5ab;
+    --accent-gold-dark: #c8a464;
+    --sidebar-hover: #333333;
+    --sidebar-separator: #2a2a2a;
+    --bg-card: #252525;
+    --border-card: #444444;
+    --shadow-card: rgba(0, 0, 0, 0.3);
+    --bg-arabic-card: #303030;
+}
+
+.sepia-theme {
+    /* --- Sepia Theme --- */
+    --bg-main: #f4f0e8;
+    --text-main: #594839;
+    --text-header: #704214;
+    --bg-sidebar: #594839; /* Re-using main text color for cohesion */
+    --text-sidebar: #f4f0e8;
+    --accent-gold-light: #e0cda2;
+    --accent-gold-dark: #b89b72;
+    --sidebar-hover: #715f4f; /* Lighter brown for hover */
+    --sidebar-separator: #45382d; /* Darker brown for separators */
+    --bg-card: #fbf8f2;
+    --border-card: #e6e0d4;
+    --shadow-card: rgba(89, 61, 51, 0.15);
+    --bg-arabic-card: #fffcf7;
+}
+
+/* ==========================================================================
+   2. General Layout & Typography
+   ========================================================================== */
+
+body {
+    display: flex;
+    font-family: var(--font-bengali);
+    margin: 0;
+    height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ==========================================================================
+   3. Sidebar Navigation
+   ========================================================================== */
+
+#sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--bg-sidebar);
+    color: var(--text-sidebar);
+    border-right: 2px solid var(--accent-gold-dark);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar-scroll-area {
+    flex-grow: 1; /* Allows this area to fill available space */
+    overflow-y: auto; /* Makes only this area scrollable */
+    padding: 0 1em; /* Horizontal padding for the list */
+    /* --- Hide Scrollbar (but keep it scrollable) --- */
+    scrollbar-width: none; /* For Firefox */
+}
+
+#sidebar h1 {
+    margin-top: 0;
+    font-size: 2em;
+    color: var(--accent-gold-light);
+    text-align: center;
+    border-bottom: 1px solid var(--accent-gold-dark);
+    padding: 1em 1em 0.5em; /* Add top/horizontal padding */
+    font-weight: 700;
+    flex-shrink: 0; /* Prevent h1 from shrinking */
+}
+
+#chapter-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#chapter-list li {
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid var(--sidebar-separator);
+    transition: background-color 0.3s; /* Restore transition for parent chapters */
+}
+
+.chapter-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8em 0.6em;
+}
+
+.expand-icon {
+    display: none; /* Hide icon by default */
+    font-size: 0.8em;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+}
+
+#chapter-list li.active.has-sub-chapters .expand-icon {
+    display: inline-block; /* Show icon for active chapters with sub-lists */
+}
+
+#chapter-list li.expanded .expand-icon {
+    transform: rotate(90deg); /* Rotate icon when expanded */
+}
+
+#chapter-list li:hover, #chapter-list li.active {
+    background-color: var(--sidebar-hover);
+    color: var(--accent-gold-light);
+}
+
+/* Styles for the nested sub-chapter list */
+.sub-chapter-list {
+    list-style-type: none;
+    padding-left: 1.2em;
+    margin: 0.5em 0;
+    border-left: 2px solid var(--accent-gold-dark);
+}
+
+.sub-chapter-list li {
+    padding: 0.5em 0.6em;
+    font-size: 0.9em;
+    border-bottom: none;
+    border-radius: 4px;
+    margin-right: 4px;
+    transition: none !important; /* Explicitly disable transitions for sub-chapters */
+}
+
+#chapter-list .sub-chapter-list li:hover {
+    background-color: var(--accent-gold-light);
+    color: var(--bg-sidebar);
+}
+
+/* Class to hide the sub-chapter list for collapsing */
+.sub-chapter-list.collapsed {
+    display: none;
+}
+
+/* Override hover text color for Sepia theme for better contrast */
+.sepia-theme #chapter-list li:hover,
+.sepia-theme #chapter-list li.active {
+    color: var(--text-sidebar);
+}
+
+/* Override sub-chapter hover text color for Sepia theme for better contrast */
+.sepia-theme #chapter-list .sub-chapter-list li:hover {
+    color: var(--sidebar-separator); /* Use the darkest brown for high contrast */
+}
+
+/* ==========================================================================
+   4. Main Content Area
+   ========================================================================== */
+
+#main-content {
+    margin-left: 300px; /* Same as sidebar width */
+    padding: 2em 3em;
+    width: calc(100% - 300px);
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+#markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.9;
+    font-size: 1.2rem;
+}
+
+#markdown-content h1, #markdown-content h2, #markdown-content h3 {
+    color: var(--text-header);
+    border-bottom: 1px solid var(--border-card);
+    padding-bottom: 0.3em;
+    font-weight: 700;
+}
+
+/* Center-align the main H1 title of a chapter */
+#markdown-content h1 {
+    text-align: center;
+    border-bottom-style: double; /* Give it a more distinct border */
+}
+
+#markdown-content a {
+    color: var(--sidebar-hover);
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   5. Component Styles (Cards, Buttons)
+   ========================================================================== */
+
+/* Styles for the content sections/cards */
+.content-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 1.5em 2em;
+    margin-bottom: 2em;
+    box-shadow: 0 4px 8px var(--shadow-card);
+}
+
+.content-card:last-child {
+    margin-bottom: 0;
+}
+
+/* Styles for the clickable Arabic letter cards */
+.arabic-letter-card {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.5em;
+    height: 1.5em;
+    padding: 0.5em;
+    margin: 0.1em 0.2em;
+    background-color: var(--bg-arabic-card);
+    border: 1px solid var(--accent-gold-dark);
+    border-radius: 8px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.15);
+    font-family: var(--font-arabic);
+    font-size: 2.5rem; /* Increased letter size for readability */
+    font-weight: 700; /* Ensured boldest weight */
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    user-select: none; /* Prevent text selection on click */
+    position: relative; /* For z-index to work on hover */
+}
+
+.arabic-letter-card:hover {
+    transform: translateY(-5px) scale(1.1); /* More float and bigger size */
+    box-shadow: 6px 6px 12px rgba(0,0,0,0.2); /* Deeper shadow for float effect */
+    z-index: 10; /* Ensure it floats above other elements */
+}
+
+/* ==========================================================================
+   6. Layout Helpers & Specific Styles
+   ========================================================================== */
+
+/* Style for mixed-language lines (e.g., Bangla + Arabic) */
+.mixed-language-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1em; /* Creates space between the Bengali and Arabic text */
+}
+
+/* Wrapper for the Bengali text that allows it to wrap */
+.bengali-text {
+    /* This element will naturally grow and its text will wrap */
+}
+
+/* This ensures the Arabic group stays on the right and does not wrap */
+.arabic-group {
+    flex-shrink: 0; /* Prevents this group from shrinking or wrapping */
+}
+
+/* ==========================================================================
+   7. Custom Scrollbars
+   ========================================================================== */
+
+/* --- Custom Scrollbar for Main Content (Firefox) --- */
+#main-content {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-gold-dark) var(--bg-main);
+}
+
+/* --- Hide Sidebar Scrollbar (Webkit) --- */
+#main-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+#main-content::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+
+#main-content::-webkit-scrollbar-thumb {
+    background-color: var(--accent-gold-dark);
+    border-radius: 10px;
+    border: 3px solid var(--bg-main);
+}
+
+#main-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-gold-light);
+}
+
+#sidebar-scroll-area::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for webkit browsers */
+}
+
+/* ==========================================================================
+   8. Settings Panel
+   ========================================================================== */
+
+#settings-trigger {
+    flex-shrink: 0; /* Prevent trigger from shrinking */
+    padding: 1em;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--sidebar-separator);
+    border-top: 1px solid var(--accent-gold-dark);
+}
+
+#settings-trigger:hover {
+    background-color: var(--sidebar-hover);
+}
+
+#settings-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100%;
+    background-color: var(--bg-card);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    z-index: 2000;
+    transform: translateX(0);
+    transition: transform 0.4s ease-in-out;
+    border-left: 1px solid var(--border-card);
+}
+
+#settings-panel.collapsed {
+    transform: translateX(100%);
+}
+
+#settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1.5em;
+    border-bottom: 1px solid var(--border-card);
+}
+
+#settings-header h2 { color: var(--text-header); }
+
+#settings-close {
+    font-size: 2.5em;
+    cursor: pointer;
+    color: var(--text-main);
+}
+
+#settings-body {
+    padding: 1.5em;
+}
+
+.setting-item {
+    margin-bottom: 2em;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: var(--text-header);
+}
+
+.setting-item select {
+    width: 100%;
+    padding: 0.5em;
+    font-family: inherit;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid var(--border-card);
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   9. Animations
+   ========================================================================== */
+
+@keyframes pulse-highlight {
+    0% {
+        /* Start with a solid, non-expanded ring */
+        box-shadow: 0 4px 8px rgba(88, 62, 46, 0.1), 0 0 0 0px rgba(200, 164, 100, 0.8);
+    }
+    100% {
+        /* End with a large, fully faded-out ring */
+        box-shadow: 0 4px 8px rgba(88, 62, 46, 0.1), 0 0 0 30px rgba(200, 164, 100, 0);
+    }
+}
+
+.pulse-once {
+    animation: pulse-highlight 1.5s ease-out;
+}
+
+/* ==========================================================================
+   10. Letter Popup Modal
+   ========================================================================== */
+
+.modal-hidden {
+    display: none !important;
+}
+
+#letter-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(40, 30, 20, 0.7); /* Thematic overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000; /* Higher than settings panel */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#letter-modal-overlay.visible {
+    opacity: 1;
+}
+
+#letter-modal-container {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    padding: 2em;
+    border-radius: 15px;
+    border: 2px solid var(--accent-gold-dark);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    min-width: 320px; /* Increased size */
+    min-height: 320px; /* Increased size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#letter-modal-overlay.visible #letter-modal-container {
+    transform: scale(1);
+}
+
+#letter-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent-gold-dark); /* Stylish by default */
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--bg-card); /* High contrast text */
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+#letter-modal-close:hover {
+    background-color: var(--accent-gold-light); /* Lighter on hover */
+    color: var(--sidebar-separator); /* Dark text for light background */
+    transform: scale(1.1);
+}
+
+#letter-modal-body {
+    font-family: var(--font-arabic);
+    font-size: 12rem; /* Reduced size to prevent overflow */
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-header);
+}
