@@ -16,19 +16,6 @@ export async function loadChapter(finalPath) {
     
     const chapterName = finalPath.split('/').pop();
 
-    // Dynamically load the letter card stylesheet if the chapter is the letter page.
-    if (chapterName === 'all-harf.html') {
-        const head = document.head;
-        let link = document.querySelector('link[href="./css/letter-card-style.css"]');
-        if (!link) {
-            link = document.createElement('link');
-            link.type = 'text/css';
-            link.rel = 'stylesheet';
-            link.href = './css/letter-card-style.css'; // Corrected path
-            head.appendChild(link);
-        }
-    }
-
     // Build the navigation list dynamically
     data.forEach(item => {
         const li = document.createElement('li');

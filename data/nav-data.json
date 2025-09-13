@@ -8,5 +8,15 @@
         "title": "৮ ভাগে ২৮ হরফ",
         "url": "/chapters/chapter01.html",
         "icon": "fas fa-book"
+    },
+    {
+        "title": "মাখরাজ",
+        "url": "/chapters/chapter02.html",
+        "icon": "fas fa-bullhorn"
+    },
+    {
+        "title": "মুরাক্কাব",
+        "url": "/chapters/chapter03.html",
+        "icon": "fas fa-link"
     }
 ]
