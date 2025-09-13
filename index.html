@@ -13,6 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+    <canvas id="particle-canvas"></canvas>
+
     <nav id="sidebar">
         <h1>সূচীপত্র</h1>
         <div id="sidebar-scroll-area">
@@ -53,6 +55,22 @@
                     <option value="'Noto Naskh Arabic', serif">Noto Naskh Arabic (Default)</option>
                     <option value="'Amiri', serif">Amiri</option>
                     <option value="'Lateef', cursive">Nurani (Lateef)</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label for="fx-select">Background Effect</label>
+                <select id="fx-select">
+                    <option value="none">None</option>
+                    <option value="sparkles">Sparkles</option>
+                    <option value="shooting-stars">Shooting Stars</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label for="fx-density-select">Effect Density</label>
+                <select id="fx-density-select">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
                 </select>
             </div>
         </div>

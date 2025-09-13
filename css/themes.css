@@ -17,6 +17,7 @@
     --border-card: #444444;
     --shadow-card: rgba(0, 0, 0, 0.3);
     --bg-arabic-card: #303030;
+    --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }
 
 .sepia-theme {
@@ -34,6 +35,7 @@
     --border-card: #e6e0d4;
     --shadow-card: rgba(89, 61, 51, 0.15);
     --bg-arabic-card: #fffcf7;
+    --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }
 
 .gold-theme {
@@ -51,6 +53,7 @@
     --border-card: #d7ccc8; /* Soft Gold/Brown */
     --shadow-card: rgba(78, 52, 46, 0.15);
     --bg-arabic-card: #fff8e1; /* Light Cream */
+    --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }
 
 .emerald-theme {
@@ -68,6 +71,7 @@
     --border-card: #c8d5c8;
     --shadow-card: rgba(13, 93, 55, 0.1);
     --bg-arabic-card: #e8f5e9;
+    --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }
 
 .midnight-theme {
@@ -85,4 +89,5 @@
     --border-card: #4a4a4a;
     --shadow-card: rgba(0, 0, 0, 0.4);
     --bg-arabic-card: #2a366a;
+    --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }

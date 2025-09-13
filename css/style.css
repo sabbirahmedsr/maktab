@@ -20,6 +20,7 @@
     --border-card: #e0d8c5;
     --shadow-card: rgba(88, 62, 46, 0.1);
     --bg-arabic-card: #fffaf0;
+    --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }
 
 /* ==========================================================================
@@ -165,6 +166,17 @@ body {
     overflow-y: auto;
 }
 
+/* Ensure main content is rendered above the particle canvas */
+#main-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure sidebar is rendered above the particle canvas */
+#sidebar {
+    z-index: 100;
+}
+
 #markdown-content {
     max-width: 800px;
     margin: 0 auto;
@@ -246,11 +258,6 @@ body {
     justify-content: space-between;
     align-items: baseline;
     gap: 1em; /* Creates space between the Bengali and Arabic text */
-}
-
-/* Wrapper for the Bengali text that allows it to wrap */
-.bengali-text {
-    /* This element will naturally grow and its text will wrap */
 }
 
 /* This ensures the Arabic group stays on the right and does not wrap */
@@ -494,4 +501,16 @@ body {
     background-color: var(--bg-arabic-card);
     border: 1px solid var(--accent-gold-dark);
     border-radius: 8px;
+}
+
+/* --- Particle FX Canvas --- */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to go through */
+    z-index: 0; /* Behind most content but above the base background */
+    background-color: var(--bg-particle-canvas);
 }
