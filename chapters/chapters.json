@@ -1,8 +1,8 @@
 {
     "chapters": [
-        { "title": "আরবি হরফ", "file": "c00-harf.md" },
-        { "title": "৮ ভাগে ২৯ হরফ", "file": "c01-harf-8-division.md" },
-        { "title": "মাখরাজ", "file": "c02-makhraj.md" },
-        { "title": "মুরাক্কাব", "file": "c03-murakkab.md" }
+        { "title": "আরবি হরফ", "file": "c01-harf.md" },
+        { "title": "৮ ভাগে ২৯ হরফ", "file": "c02-harf-8-division.md" },
+        { "title": "মাখরাজ", "file": "c03-makhraj.md" },
+        { "title": "মুরাক্কাব", "file": "c04-murakkab.md" }
     ]
 }

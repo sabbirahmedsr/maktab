@@ -89,7 +89,7 @@ function styleMixedLanguageLines(container) {
             while (el.lastChild) {
                 const last = el.lastChild;
                 if ((last.nodeType === 1 && last.classList.contains('arabic-letter-card')) || (last.nodeType === 3 && last.textContent.trim() === '')) {
-                    rightAlignWrapper.prepend(last);
+                    rightAlignWrapper.prepend(last); // This preserves the visual order by prepending
                 } else {
                     break;
                 }
@@ -104,6 +104,9 @@ function styleMixedLanguageLines(container) {
                 el.appendChild(leftTextWrapper);
                 el.appendChild(rightAlignWrapper);
                 el.classList.add('mixed-language-line');
+
+                // Set direction to RTL for the Arabic group to ensure correct rendering order
+                rightAlignWrapper.dir = 'rtl';
             }
         }
     });
