@@ -1,0 +1,88 @@
+/* ==========================================================================
+   Theme Definitions
+   ========================================================================== */
+
+.dark-theme {
+    /* --- Dark Theme --- */
+    --bg-main: #1a1a1a;
+    --text-main: #e0e0e0;
+    --text-header: #f3e5ab;
+    --bg-sidebar: #111111;
+    --text-sidebar: #e0e0e0;
+    --accent-gold-light: #f3e5ab;
+    --accent-gold-dark: #c8a464;
+    --sidebar-hover: #333333;
+    --sidebar-separator: #2a2a2a;
+    --bg-card: #252525;
+    --border-card: #444444;
+    --shadow-card: rgba(0, 0, 0, 0.3);
+    --bg-arabic-card: #303030;
+}
+
+.sepia-theme {
+    /* --- Sepia Theme --- */
+    --bg-main: #f4f0e8;
+    --text-main: #594839;
+    --text-header: #704214;
+    --bg-sidebar: #594839; /* Re-using main text color for cohesion */
+    --text-sidebar: #f4f0e8;
+    --accent-gold-light: #e0cda2;
+    --accent-gold-dark: #b89b72;
+    --sidebar-hover: #715f4f; /* Lighter brown for hover */
+    --sidebar-separator: #45382d; /* Darker brown for separators */
+    --bg-card: #fbf8f2;
+    --border-card: #e6e0d4;
+    --shadow-card: rgba(89, 61, 51, 0.15);
+    --bg-arabic-card: #fffcf7;
+}
+
+.gold-theme {
+    /* --- Gold Theme --- */
+    --bg-main: #fff8e1; /* Light Cream */
+    --text-main: #4e342e; /* Dark Brown */
+    --text-header: #6d4c41; /* Richer Brown */
+    --bg-sidebar: #3e2723; /* Deep Dark Brown */
+    --text-sidebar: #ffd54f; /* Bright Gold */
+    --accent-gold-light: #ffecb3; /* Light Gold */
+    --accent-gold-dark: #ffc107; /* Main Gold Accent */
+    --sidebar-hover: #4e342e; /* Lighter Brown for Hover */
+    --sidebar-separator: #211a18; /* Very Dark Brown */
+    --bg-card: #fffde7; /* Off-white */
+    --border-card: #d7ccc8; /* Soft Gold/Brown */
+    --shadow-card: rgba(78, 52, 46, 0.15);
+    --bg-arabic-card: #fff8e1; /* Light Cream */
+}
+
+.emerald-theme {
+    /* --- Emerald & Jade Theme --- */
+    --bg-main: #f0f7f4;
+    --text-main: #1e4620;
+    --text-header: #0d5d37;
+    --bg-sidebar: #043927;
+    --text-sidebar: #e8f5e9;
+    --accent-gold-light: #d4af37;
+    --accent-gold-dark: #b8860b;
+    --sidebar-hover: #0b533a;
+    --sidebar-separator: #022c1d;
+    --bg-card: #fafffa;
+    --border-card: #c8d5c8;
+    --shadow-card: rgba(13, 93, 55, 0.1);
+    --bg-arabic-card: #e8f5e9;
+}
+
+.midnight-theme {
+    /* --- Midnight Blue & Silver Theme --- */
+    --bg-main: #0c1445;
+    --text-main: #c0c0c0;
+    --text-header: #e0e0e0;
+    --bg-sidebar: #050a21;
+    --text-sidebar: #f5f5f5;
+    --accent-gold-light: #dcdcdc;
+    --accent-gold-dark: #a9a9a9;
+    --sidebar-hover: #16215b;
+    --sidebar-separator: #030613;
+    --bg-card: #1f295e;
+    --border-card: #4a4a4a;
+    --shadow-card: rgba(0, 0, 0, 0.4);
+    --bg-arabic-card: #2a366a;
+}

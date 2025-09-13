@@ -22,40 +22,6 @@
     --bg-arabic-card: #fffaf0;
 }
 
-.dark-theme {
-    /* --- Dark Theme --- */
-    --bg-main: #1a1a1a;
-    --text-main: #e0e0e0;
-    --text-header: #f3e5ab;
-    --bg-sidebar: #111111;
-    --text-sidebar: #e0e0e0;
-    --accent-gold-light: #f3e5ab;
-    --accent-gold-dark: #c8a464;
-    --sidebar-hover: #333333;
-    --sidebar-separator: #2a2a2a;
-    --bg-card: #252525;
-    --border-card: #444444;
-    --shadow-card: rgba(0, 0, 0, 0.3);
-    --bg-arabic-card: #303030;
-}
-
-.sepia-theme {
-    /* --- Sepia Theme --- */
-    --bg-main: #f4f0e8;
-    --text-main: #594839;
-    --text-header: #704214;
-    --bg-sidebar: #594839; /* Re-using main text color for cohesion */
-    --text-sidebar: #f4f0e8;
-    --accent-gold-light: #e0cda2;
-    --accent-gold-dark: #b89b72;
-    --sidebar-hover: #715f4f; /* Lighter brown for hover */
-    --sidebar-separator: #45382d; /* Darker brown for separators */
-    --bg-card: #fbf8f2;
-    --border-card: #e6e0d4;
-    --shadow-card: rgba(89, 61, 51, 0.15);
-    --bg-arabic-card: #fffcf7;
-}
-
 /* ==========================================================================
    2. General Layout & Typography
    ========================================================================== */
@@ -250,7 +216,7 @@ body {
     min-width: 1.5em;
     height: 1.5em;
     padding: 0.5em;
-    margin: 0.1em 0.2em;
+    margin: 0.2em;
     background-color: var(--bg-arabic-card);
     border: 1px solid var(--accent-gold-dark);
     border-radius: 8px;
@@ -450,54 +416,82 @@ body {
 #letter-modal-container {
     background-color: var(--bg-card);
     color: var(--text-main);
-    padding: 2em;
+    padding: 3em; /* Increased padding for more breathing room */
     border-radius: 15px;
     border: 2px solid var(--accent-gold-dark);
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     position: relative;
     text-align: center;
     transform: scale(0.9);
-    transition: transform 0.3s ease;
-    min-width: 320px; /* Increased size */
-    min-height: 320px; /* Increased size */
+    transition: transform 0.3s ease;    
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 90vw; /* Prevent it from being too wide on large screens */
 }
 
 #letter-modal-overlay.visible #letter-modal-container {
     transform: scale(1);
 }
 
-#letter-modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--accent-gold-dark); /* Stylish by default */
-    font-size: 1.8em;
-    font-weight: bold;
-    color: var(--bg-card); /* High contrast text */
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-}
-
-#letter-modal-close:hover {
-    background-color: var(--accent-gold-light); /* Lighter on hover */
-    color: var(--sidebar-separator); /* Dark text for light background */
-    transform: scale(1.1);
-}
-
 #letter-modal-body {
     font-family: var(--font-arabic);
-    font-size: 12rem; /* Reduced size to prevent overflow */
     font-weight: 700;
     line-height: 1;
     color: var(--text-header);
+}
+
+/* Default view for combined letter "equations" */
+#letter-modal-body:not(.single-letter-view) {
+    font-size: 8rem;
+    padding: 0.5em 1.5em; /* Adjust padding to make the box a bit smaller */
+}
+
+/* Flex container for the new single-letter view */
+.single-letter-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.5em; /* Further increased gap for better vertical separation */
+    padding: 0 1em; /* Add side padding */
+}
+
+/* The large, standalone letter at the top */
+.single-letter-view .single-letter-display {
+    font-size: 10rem; /* Reduced size */
+    line-height: 1;
+}
+
+/* Container for all examples */
+.single-letter-view .examples-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+/* Flex container for the combination examples */
+.single-letter-view .combination-examples {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Individual combination example cards */
+.single-letter-view .example {
+    font-size: 5rem; /* Reduced size */
+    padding: 0.2em 0.4em;
+    background-color: var(--bg-arabic-card);
+    border: 1px solid var(--accent-gold-dark);
+    border-radius: 8px;
+}
+
+/* Style for the positional form example (initial, medial, final) */
+.single-letter-view .positional-form-example {
+    font-size: 5rem; /* Reduced size */
+    padding: 0.2em 0.6em;
+    background-color: var(--bg-arabic-card);
+    border: 1px solid var(--accent-gold-dark);
+    border-radius: 8px;
 }

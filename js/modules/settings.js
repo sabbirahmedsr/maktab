@@ -19,7 +19,7 @@ const arabicFontSelect = document.getElementById('arabic-font-select');
  * @param {string} themeName The name of the theme to apply ('light', 'dark', 'sepia').
  */
 function updateTheme(themeName) {
-    document.body.classList.remove('dark-theme', 'sepia-theme');
+    document.body.classList.remove('dark-theme', 'sepia-theme', 'gold-theme', 'emerald-theme', 'midnight-theme');
     if (themeName !== 'light') {
         document.body.classList.add(themeName + '-theme');
     }

@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================================================
     const chapterList = document.getElementById('chapter-list');
     const contentDiv = document.getElementById('markdown-content');
+    const mainContent = document.getElementById('main-content');
 
     // ========================================================================
     // 2. Navigation Building
@@ -46,15 +47,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 subLi.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const targetHeading = document.getElementById(headingId);
-                    targetHeading.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
+                    const targetHeading = document.getElementById(headingId);
                     const targetCard = targetHeading.closest('.content-card');
+                    
                     if (targetCard) {
+                        // Calculate the position to scroll to.
+                        // targetCard.offsetTop gives the position relative to its parent (#markdown-content).
+                        // We subtract the main content's top padding to leave a gap at the top.
+                        const mainContentPaddingTop = parseFloat(getComputedStyle(mainContent).paddingTop);
+                        const scrollToPosition = targetCard.offsetTop - mainContentPaddingTop;
+
+                        mainContent.scrollTo({ top: scrollToPosition, behavior: 'smooth' });
+                        
                         targetCard.classList.remove('pulse-once');
                         void targetCard.offsetWidth; // Force reflow to restart animation
                         targetCard.classList.add('pulse-once');
                         targetCard.addEventListener('animationend', () => targetCard.classList.remove('pulse-once'), { once: true });
+                    } else {
+                        // Fallback if no card is found, though unlikely
+                        targetHeading.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 });
                 subChapterList.appendChild(subLi);

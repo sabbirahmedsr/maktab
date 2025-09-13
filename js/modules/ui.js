@@ -7,19 +7,47 @@
 
 // DOM elements that this module interacts with
 const letterModalOverlay = document.getElementById('letter-modal-overlay');
+const letterModalContainer = document.getElementById('letter-modal-container');
 const letterModalBody = document.getElementById('letter-modal-body');
-const letterModalClose = document.getElementById('letter-modal-close');
 
 /**
  * Opens the letter modal with the specified letter.
  * @param {string} letter The letter or sequence to display.
  */
 export function openLetterModal(letter) {
-    letterModalBody.textContent = letter;
+    // Reset modal body for new content
+    letterModalBody.innerHTML = '';
+    letterModalBody.className = 'letter-modal-body'; // Reset classes
+
+    if (letter.length > 1) {
+        // --- Combined Letter View ---
+        // For combined letters, show the full composition equation
+        letterModalBody.textContent = `${letter.split('').join(' + ')} = ${letter}`;
+    } else {
+        // --- Single Letter View ---
+        letterModalBody.classList.add('single-letter-view');
+
+        const alif = 'ا';
+        const waw = 'و';
+        const ya = 'ي';
+
+        // Create the HTML structure for the single letter and its combinations
+        letterModalBody.innerHTML = `
+            <div class="single-letter-display">${letter}</div>
+            <div class="examples-container">
+                <div class="combination-examples">
+                    <span class="example">${letter + alif}</span>
+                    <span class="example">${letter + waw}</span>
+                    <span class="example">${letter + ya}</span>
+                </div>
+                <div class="positional-form-example">${letter + letter + letter}</div>
+            </div>
+        `;
+    }
+
     letterModalOverlay.classList.remove('modal-hidden');
     setTimeout(() => letterModalOverlay.classList.add('visible'), 10);
 
-    letterModalClose.addEventListener('click', closeLetterModal);
     letterModalOverlay.addEventListener('click', closeLetterModalOnClickOutside);
     window.addEventListener('keydown', closeLetterModalOnEscape);
 }
@@ -29,9 +57,9 @@ export function openLetterModal(letter) {
  */
 function closeLetterModal() {
     letterModalOverlay.classList.remove('visible');
+
     setTimeout(() => letterModalOverlay.classList.add('modal-hidden'), 300);
 
-    letterModalClose.removeEventListener('click', closeLetterModal);
     letterModalOverlay.removeEventListener('click', closeLetterModalOnClickOutside);
     window.removeEventListener('keydown', closeLetterModalOnEscape);
 }
