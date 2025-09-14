@@ -2,6 +2,7 @@
    Theme Definitions
    ========================================================================== */
 
+/* A dark theme with high-contrast gold accents. */
 .dark-theme {
     /* --- Dark Theme --- */
     --bg-main: #1a1a1a;
@@ -20,6 +21,7 @@
     --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }
 
+/* A warm, paper-like theme with brown and cream colors. */
 .sepia-theme {
     /* --- Sepia Theme --- */
     --bg-main: #f4f0e8;
@@ -38,6 +40,7 @@
     --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }
 
+/* A luxurious theme with deep browns and bright gold highlights. */
 .gold-theme {
     /* --- Gold Theme --- */
     --bg-main: #fff8e1; /* Light Cream */
@@ -56,6 +59,7 @@
     --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }
 
+/* A calm theme inspired by jade and emerald, with green and gold colors. */
 .emerald-theme {
     /* --- Emerald & Jade Theme --- */
     --bg-main: #f0f7f4;
@@ -74,6 +78,7 @@
     --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
 }
 
+/* A deep, futuristic theme with midnight blue and silver/gray accents. */
 .midnight-theme {
     /* --- Midnight Blue & Silver Theme --- */
     --bg-main: #0c1445;
@@ -90,4 +95,38 @@
     --shadow-card: rgba(0, 0, 0, 0.4);
     --bg-arabic-card: #2a366a;
     --bg-particle-canvas: #1a1a1a; /* Neutral dark for all themes */
+}
+
+/* A sleek, futuristic theme with frosted glass effects over a background image. */
+.glass-theme {
+    /* A soft, futuristic gradient background that is fixed */
+    background-image: url('https://images.unsplash.com/photo-1708779493105-9c743e367a3c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+
+    --bg-main: transparent; /* Body background is now the gradient */
+    --text-main: #e5e7eb; /* Light gray for readability on dark bg */
+    --text-header: #ffffff; /* Pure white for main headers */
+    --bg-sidebar: rgba(255, 255, 255, 0.1); /* More transparent */
+    --text-sidebar: #e5e7eb; /* Use main text color for readability */
+    --accent-gold-light: #a0c4ff; /* Soft pastel blue for highlights */
+    --accent-gold-dark: #89b6ff; /* A brighter, more vibrant blue for main borders */
+    --sidebar-hover: rgba(255, 255, 255, 0.2);
+    --sidebar-separator: rgba(255, 255, 255, 0.15);
+    --bg-card: rgba(255, 255, 255, 0.1); /* More transparent */
+    --border-card: rgba(200, 220, 255, 0.3); /* Softer ethereal border */
+    --shadow-card: rgba(0, 0, 0, 0.2); /* A simple dark shadow for contrast */
+    --bg-arabic-card: rgba(255, 255, 255, 0.2); /* More transparent */
+    --bg-particle-canvas: transparent; /* Particles should be on the gradient */
+}
+
+/* Apply the core glass effect to major components within the glass theme */
+.glass-theme #sidebar,
+.glass-theme .content-card,
+.glass-theme #settings-panel,
+.glass-theme #letter-modal-container,
+.glass-theme .setting-item select {
+    backdrop-filter: blur(12px) saturate(150%); /* Reduced blur */
+    -webkit-backdrop-filter: blur(12px) saturate(150%); /* Reduced blur */
 }

@@ -1,0 +1,231 @@
+/* ==========================================================================
+   General Layout & Typography
+   ========================================================================== */
+
+body {
+    display: flex;
+    font-family: var(--font-ui);
+    margin: 0;
+    height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ==========================================================================
+   Sidebar Navigation
+   ========================================================================== */
+
+#sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--bg-sidebar);
+    color: var(--text-sidebar);
+    border-right: 2px solid var(--accent-gold-dark);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100; /* Ensure sidebar is rendered above the particle canvas */
+}
+
+/* Soften the sidebar border for the glass theme */
+.glass-theme #sidebar {
+    border-right: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+#sidebar-scroll-area {
+    flex-grow: 1; /* Allows this area to fill available space */
+    overflow-y: auto; /* Makes only this area scrollable */
+    padding: 0 1em; /* Horizontal padding for the list */
+}
+
+#sidebar h1 {
+    margin-top: 0;
+    font-size: 2em;
+    color: var(--accent-gold-light);
+    text-align: center;
+    border-bottom: 1px solid var(--accent-gold-dark);
+    padding: 1em 1em 0.5em; /* Add top/horizontal padding */
+    font-weight: 700;
+    flex-shrink: 0; /* Prevent h1 from shrinking */
+}
+
+#chapter-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#chapter-list li {
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: var(--font-bengali);
+    margin-bottom: 5px;
+    border-bottom: 1px solid var(--sidebar-separator);
+    transition: background-color 0.3s; /* Restore transition for parent chapters */
+}
+
+.chapter-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8em 0.6em;
+    font-size: 1.05em; /* Slightly increase main chapter font size */
+}
+
+.expand-icon {
+    display: none; /* Hide icon by default */
+    font-size: 0.8em;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+}
+
+#chapter-list li.active.has-sub-chapters .expand-icon {
+    display: inline-block; /* Show icon for active chapters with sub-lists */
+}
+
+#chapter-list li.expanded .expand-icon {
+    transform: rotate(90deg); /* Rotate icon when expanded */
+}
+
+#chapter-list li:hover, #chapter-list li.active {
+    background-color: var(--sidebar-hover);
+    color: var(--accent-gold-light);
+}
+
+/* Styles for the nested sub-chapter list */
+.sub-chapter-list {
+    list-style-type: none;
+    padding-left: 1.2em;
+    margin: 0.5em 0;
+    border-left: 2px solid var(--accent-gold-dark);
+}
+
+.sub-chapter-list li {
+    padding: 0.5em 0.6em;
+    font-size: 0.95em; /* Slightly increase sub-chapter font size */
+    border-bottom: none;
+    border-radius: 4px;
+    margin-right: 4px;
+    transition: none !important; /* Explicitly disable transitions for sub-chapters */
+}
+
+/* Style for the Arabic text within the sub-nav */
+.nav-arabic {
+    font-family: var(--font-arabic);
+    font-weight: 700; /* Make it bold */
+    font-size: 1.2em; /* Make it slightly larger than the surrounding text */
+}
+
+#chapter-list .sub-chapter-list li:hover {
+    background-color: var(--accent-gold-light);
+    color: var(--bg-sidebar);
+}
+
+/* Class to hide the sub-chapter list for collapsing */
+.sub-chapter-list.collapsed {
+    display: none;
+}
+
+/* Override hover text color for Sepia theme for better contrast */
+.sepia-theme #chapter-list li:hover,
+.sepia-theme #chapter-list li.active {
+    color: var(--text-sidebar);
+}
+
+/* Override sub-chapter hover text color for Sepia theme for better contrast */
+.sepia-theme #chapter-list .sub-chapter-list li:hover {
+    color: var(--sidebar-separator); /* Use the darkest brown for high contrast */
+}
+
+/* Override hover text color for Glass theme for better contrast */
+.glass-theme #chapter-list li:hover,
+.glass-theme #chapter-list li.active {
+    color: #ffffff; /* Use pure white for max contrast on hover */
+}
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
+
+#main-content {
+    margin-left: 300px; /* Same as sidebar width */
+    padding: 2em 3em;
+    width: calc(100% - 300px);
+    box-sizing: border-box;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1; /* Ensure main content is rendered above the particle canvas */
+}
+
+#markdown-content {
+    max-width: 860px;
+    margin: 0 auto;
+    line-height: 1.9;
+    font-family: var(--font-bengali);
+    font-size: 1.2rem;
+}
+
+#markdown-content h1, #markdown-content h2, #markdown-content h3 {
+    color: var(--text-header);
+    border-bottom: 1px solid var(--border-card);
+    padding-bottom: 0.3em;
+    font-weight: 700;
+}
+
+/* Center-align the main H1 title of a chapter */
+#markdown-content h1 {
+    text-align: center;
+    border-bottom-style: double; /* Give it a more distinct border */
+}
+
+#markdown-content a {
+    color: var(--sidebar-hover);
+    text-decoration: none;
+}
+
+/* Style for mixed-language lines (e.g., Bangla + Arabic) */
+.mixed-language-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1em; /* Creates space between the Bengali and Arabic text */
+}
+
+/* This ensures the Arabic group stays on the right and does not wrap */
+.arabic-group {
+    flex-shrink: 0; /* Prevents this group from shrinking or wrapping */
+}
+
+/* ==========================================================================
+   FX Canvases
+   ========================================================================== */
+
+/* Canvas for background effects like sparkles */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to go through */
+    z-index: 0; /* Behind main content but above body background */
+    display: none; /* Hidden by default, controlled by JS */
+    background-color: var(--bg-particle-canvas);
+}
+
+/* Canvas for foreground effects like mouse trails */
+#overlay-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto; /* It needs to receive mouse events */
+    z-index: 1; /* Above the background canvas, but below content */
+    display: none; /* Hidden by default */
+}

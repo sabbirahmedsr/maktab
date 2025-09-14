@@ -1,0 +1,18 @@
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes pulse-highlight {
+    0% {
+        /* Start with a solid, non-expanded ring */
+        box-shadow: 0 4px 8px rgba(88, 62, 46, 0.1), 0 0 0 0px rgba(200, 164, 100, 0.8);
+    }
+    100% {
+        /* End with a large, fully faded-out ring */
+        box-shadow: 0 4px 8px rgba(88, 62, 46, 0.1), 0 0 0 30px rgba(200, 164, 100, 0);
+    }
+}
+
+.pulse-once {
+    animation: pulse-highlight 1.5s ease-out;
+}

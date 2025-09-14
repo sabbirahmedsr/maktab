@@ -1,0 +1,120 @@
+/* ==========================================================================
+   Settings Panel
+   ========================================================================== */
+
+#settings-trigger {
+    flex-shrink: 0; /* Prevent trigger from shrinking */
+    padding: 1em;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--sidebar-separator);
+    border-top: 1px solid var(--accent-gold-dark);
+}
+
+#settings-trigger:hover {
+    background-color: var(--sidebar-hover);
+}
+
+#settings-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 100%;
+    background-color: var(--bg-card);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+    z-index: 2000;
+    transform: translateX(0);
+    transition: transform 0.4s ease-in-out;
+    border-right: 1px solid var(--border-card);
+}
+
+/* Override default shadows with a glow for the glass theme */
+.glass-theme #settings-panel {
+    box-shadow: 0 4px 15px var(--shadow-card);
+}
+
+#settings-panel.collapsed {
+    transform: translateX(-100%);
+}
+
+#settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1.5em;
+    border-bottom: 1px solid var(--border-card);
+}
+
+#settings-header h2 { color: var(--text-header); }
+
+#settings-close {
+    font-size: 2.5em;
+    cursor: pointer;
+    color: var(--text-main);
+}
+
+#settings-body {
+    padding: 1.5em;
+}
+
+.setting-item {
+    margin-bottom: 2em;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: var(--text-header);
+}
+
+.setting-item select {
+    width: 100%;
+    padding: 0.5em;
+    font-family: inherit;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid var(--border-card);
+    border-radius: 4px;
+}
+
+/* Ensure dropdown options are readable across all themes */
+.setting-item select option {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+}
+
+/* Specific override for Glass theme options for high contrast */
+.glass-theme .setting-item select option {
+    background-color: rgba(30, 30, 40, 0.85);
+}
+/* Apply a glass background to dropdowns in the glass theme for readability */
+.glass-theme .setting-item select {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Style the dropdown arrow to match the theme */
+.setting-item select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7em top 50%;
+    background-size: 0.9em;
+}
+
+.toggle-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Remove bottom margin for the toggle item to align it nicely */
+.toggle-item {
+    margin-bottom: 1em;
+}
+.toggle-item label {
+    margin-bottom: 0;
+}
