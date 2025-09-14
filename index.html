@@ -13,7 +13,9 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+
     <canvas id="particle-canvas"></canvas>
+    <canvas id="overlay-canvas"></canvas>
 
     <nav id="sidebar">
         <h1>সূচীপত্র</h1>
@@ -63,6 +65,7 @@
                     <option value="none">None</option>
                     <option value="sparkles">Sparkles</option>
                     <option value="shooting-stars">Shooting Stars</option>
+                    <option value="constellations">Constellations</option>
                 </select>
             </div>
             <div class="setting-item">
@@ -71,7 +74,15 @@
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
+                    <option value="very-high">Very High</option>
                 </select>
+            </div>
+            <div class="setting-item toggle-item">
+                <label for="mouse-trail-toggle">Mouse Trail</label>
+                <label class="switch">
+                    <input type="checkbox" id="mouse-trail-toggle">
+                    <span class="slider round"></span>
+                </label>
             </div>
         </div>
     </div>

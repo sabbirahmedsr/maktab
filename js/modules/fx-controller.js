@@ -7,28 +7,40 @@
 
 import { sparklesFx } from '../fx/sparkles.js';
 import { shootingStarsFx } from '../fx/shooting-stars.js';
+import { constellationsFx } from './../fx/constellations.js';
+
+const canvasContainer = document.getElementById('particle-canvas');
 
 const effects = {
-    'none': { start: () => {}, stop: () => {} },
-    'sparkles': sparklesFx,
-    'shooting-stars': shootingStarsFx,
+    'none': { module: { start: () => {}, stop: () => {} } },
+    'sparkles': { module: sparklesFx },
+    'shooting-stars': { module: shootingStarsFx },
+    'constellations': { module: constellationsFx },
 };
 
+
+
+
+
 let currentFxName = 'none';
-const canvas = document.getElementById('particle-canvas');
 
 export function setActiveFx(fxName = 'none', density = 'medium') {
-    // Stop the current effect
-    effects[currentFxName].stop();
-
-    // Hide or show the canvas based on the selected effect
-    if (canvas) {
-        canvas.style.display = fxName === 'none' ? 'none' : 'block';
+    // Stop the currently running effect
+    if (effects[currentFxName] && effects[currentFxName].module) {
+        effects[currentFxName].module.stop();
     }
 
     // Start the new effect
-    currentFxName = fxName;
-    if (effects[currentFxName]) {
-        effects[currentFxName].start(density);
+    if (fxName === 'none') {
+        // This is the 'none' case, so hide the canvas.
+        canvasContainer.style.display = 'none';
+    } else {
+        const newEffect = effects[fxName];
+        if (newEffect && newEffect.module) {
+            canvasContainer.style.display = 'block';
+            newEffect.module.start(density);
+        }
     }
+
+     currentFxName = fxName;
 }

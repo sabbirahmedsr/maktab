@@ -7,6 +7,7 @@
  */
 
 import { setActiveFx } from './fx-controller.js';
+import { firefliesFx } from '../fx/fireflies.js';
 
 // DOM elements for settings
 const settingsTrigger = document.getElementById('settings-trigger');
@@ -17,6 +18,8 @@ const bengaliFontSelect = document.getElementById('bengali-font-select');
 const arabicFontSelect = document.getElementById('arabic-font-select');
 const fxSelect = document.getElementById('fx-select');
 const fxDensitySelect = document.getElementById('fx-density-select');
+const mouseTrailToggle = document.getElementById('mouse-trail-toggle');
+
 
 /**
  * Updates the theme by adding/removing the correct class on the body.
@@ -59,6 +62,8 @@ function applySavedSettings() {
     const savedArabicFont = localStorage.getItem('arabicFont') || "'Noto Naskh Arabic', serif";
     let savedFx = localStorage.getItem('backgroundFx') || 'sparkles';
     const savedFxDensity = localStorage.getItem('backgroundFxDensity') || 'medium';
+    const savedMouseTrail = localStorage.getItem('mouseTrail') === 'true';
+    const mouseTrailToggleContainer = mouseTrailToggle.closest('.setting-item');
 
     updateTheme(savedTheme || 'light');
 
@@ -76,6 +81,18 @@ function applySavedSettings() {
     fxSelect.value = savedFx;
     fxDensitySelect.value = savedFxDensity;
     setActiveFx(savedFx, savedFxDensity);
+
+    // Disable toggle if initial background is 'none'
+    if (savedFx === 'none') {
+        mouseTrailToggle.disabled = true;
+        if (mouseTrailToggleContainer) mouseTrailToggleContainer.style.opacity = '0.5';
+    }
+
+    // Apply saved mouse trail setting
+    mouseTrailToggle.checked = savedMouseTrail;
+    if (savedMouseTrail && savedFx !== 'none') {
+        firefliesFx.start();
+    }
 }
 
 /**
@@ -108,6 +125,21 @@ export function initSettings() {
         const currentDensity = fxDensitySelect.value;
         setActiveFx(newFx, currentDensity);
         localStorage.setItem('backgroundFx', newFx);
+
+        const mouseTrailToggleContainer = mouseTrailToggle.closest('.setting-item');
+
+        // Disable/enable mouse trail based on background effect
+        if (newFx === 'none') {
+            firefliesFx.stop();
+            mouseTrailToggle.disabled = true;
+            if (mouseTrailToggleContainer) mouseTrailToggleContainer.style.opacity = '0.5';
+        } else {
+            if (mouseTrailToggle.checked) {
+                firefliesFx.start();
+            }
+            mouseTrailToggle.disabled = false;
+            if (mouseTrailToggleContainer) mouseTrailToggleContainer.style.opacity = '1';
+        }
     });
 
     fxDensitySelect.addEventListener('change', (e) => {
@@ -115,5 +147,15 @@ export function initSettings() {
         const currentFx = fxSelect.value;
         setActiveFx(currentFx, newDensity);
         localStorage.setItem('backgroundFxDensity', newDensity);
+    });
+
+    mouseTrailToggle.addEventListener('change', (e) => {
+        const isEnabled = e.target.checked;
+        localStorage.setItem('mouseTrail', isEnabled);
+        if (isEnabled && fxSelect.value !== 'none') {
+            firefliesFx.start();
+        } else {
+            firefliesFx.stop();
+        }
     });
 }
