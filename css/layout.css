@@ -215,7 +215,6 @@ body {
     pointer-events: none; /* Allows clicks to go through */
     z-index: 0; /* Behind main content but above body background */
     display: none; /* Hidden by default, controlled by JS */
-    background-color: var(--bg-particle-canvas);
 }
 
 /* Canvas for foreground effects like mouse trails */

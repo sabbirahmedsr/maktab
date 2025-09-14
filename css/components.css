@@ -37,6 +37,7 @@
     font-family: var(--font-arabic);
     font-size: 3rem; /* Increased letter size for readability */
     font-weight: 700; /* Ensured boldest weight */
+    color: var(--text-header); /* Use a theme-based color, not inherited from body */
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     user-select: none; /* Prevent text selection on click */

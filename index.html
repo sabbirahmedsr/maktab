@@ -51,55 +51,76 @@
             <span id="settings-close">&times;</span>
         </div>
         <div id="settings-body">
-            <div class="setting-item">
-                <label for="theme-select">Theme</label>
-                <select id="theme-select">
-                    <option value="light">Parchment</option>
-                    <option value="sepia">Sepia</option>
-                    <option value="gold">Gold</option>
-                    <option value="emerald">Emerald</option>
-                    <option value="midnight">Midnight</option>
-                    <option value="dark">Premium Dark</option>
-                    <option value="glass">Glass</option>
-                </select>
-            </div>
-            <div class="setting-item">
-                <label for="bengali-font-select">Bengali Font</label>
-                <select id="bengali-font-select"><option value="'Amiri', serif">Amiri (Default)</option><option value="'Hind Siliguri', sans-serif">Hind Siliguri</option></select>
-            </div>
-            <div class="setting-item">
-                <label for="arabic-font-select">Arabic Font</label>
-                <select id="arabic-font-select">
-                    <option value="'Noto Naskh Arabic', serif">Noto Naskh Arabic (Default)</option>
-                    <option value="'Amiri', serif">Amiri</option>
-                    <option value="'Lateef', cursive">Nurani (Lateef)</option>
-                </select>
-            </div>
-            <div class="setting-item">
-                <label for="fx-select">Background Effect</label>
-                <select id="fx-select">
-                    <option value="none">None</option>
-                    <option value="sparkles">Sparkles</option>
-                    <option value="shooting-stars">Shooting Stars</option>
-                    <option value="constellations">Constellations</option>
-                </select>
-            </div>
-            <div class="setting-item">
-                <label for="fx-density-select">Effect Density</label>
-                <select id="fx-density-select">
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                    <option value="very-high">Very High</option>
-                </select>
-            </div>
-            <div class="setting-item toggle-item">
-                <label for="mouse-trail-toggle">Mouse Trail</label>
-                <label class="switch">
-                    <input type="checkbox" id="mouse-trail-toggle">
-                    <span class="slider round"></span>
-                </label>
-            </div>
+            <fieldset>
+                <legend>Appearance</legend>
+                <div class="setting-item">
+                    <label for="theme-select">UI Theme</label>
+                    <select id="theme-select">
+                        <option value="light">Parchment</option>
+                        <option value="sepia">Sepia</option>
+                        <option value="gold">Gold</option>
+                        <option value="emerald">Emerald</option>
+                        <option value="midnight">Midnight</option>
+                        <option value="dark">Premium Dark</option>
+                        <option value="glass">Glass</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="background-select">Background</label>
+                    <select id="background-select">
+                        <option value="default">Theme Default</option>
+                        <option value="https://images.unsplash.com/photo-1708779493105-9c743e367a3c" data-is-dark="true">Abstract Dark</option>
+                        <option value="https://cdn.pixabay.com/photo/2014/06/24/17/38/smoke-376543_1280.jpg">Abstract Smoke</option>
+                        <option value="https://cdn.pixabay.com/photo/2023/04/14/21/42/wallpaper-7926142_1280.jpg" data-is-dark="true">Color Island</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Fonts</legend>
+                <div class="setting-item">
+                    <label for="bengali-font-select">Bengali Font</label>
+                    <select id="bengali-font-select"><option value="'Amiri', serif">Amiri (Default)</option><option value="'Hind Siliguri', sans-serif">Hind Siliguri</option></select>
+                </div>
+                <div class="setting-item">
+                    <label for="arabic-font-select">Arabic Font</label>
+                    <select id="arabic-font-select">
+                        <option value="'Noto Naskh Arabic', serif">Noto Naskh Arabic (Default)</option>
+                        <option value="'Amiri', serif">Amiri</option>
+                        <option value="'Lateef', cursive">Nurani (Lateef)</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Effects</legend>
+                <div class="setting-item">
+                    <label for="fx-select">Particle Effect</label>
+                    <select id="fx-select">
+                        <option value="none">None</option>
+                        <option value="sparkles">Sparkles</option>
+                        <option value="shooting-stars">Shooting Stars</option>
+                        <option value="constellations">Constellations</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="cursor-fx-select">Cursor Effect</label>
+                    <select id="cursor-fx-select">
+                        <option value="none">None</option>
+                        <option value="fireflies">Fireflies</option>
+                        <option value="bouncing-balls">Bouncing Balls</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label id="particle-density-label">Particle Density</label>
+                    <div id="fx-density-buttons" class="button-group" role="group" aria-labelledby="particle-density-label">
+                        <button data-density="low">Low</button>
+                        <button data-density="medium" class="active">Medium</button>
+                        <button data-density="high">High</button>
+                        <button data-density="very-high">V.High</button>
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </div>
 

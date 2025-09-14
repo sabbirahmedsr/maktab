@@ -11,35 +11,72 @@
 
 import { setActiveFx } from './fx-controller.js';
 import { firefliesFx } from '../fx/fireflies.js';
+import { bouncingBallsFx } from '../fx/bouncing-balls.js';
 
 // References to all the interactive elements inside the settings panel.
 const settingsTrigger = document.getElementById('settings-trigger');
 const settingsPanel = document.getElementById('settings-panel');
 const settingsClose = document.getElementById('settings-close');
 const themeSelect = document.getElementById('theme-select');
+const backgroundSelect = document.getElementById('background-select');
 const bengaliFontSelect = document.getElementById('bengali-font-select');
 const arabicFontSelect = document.getElementById('arabic-font-select');
 const fxSelect = document.getElementById('fx-select');
-const fxDensitySelect = document.getElementById('fx-density-select');
-const mouseTrailToggle = document.getElementById('mouse-trail-toggle');
+const cursorFxSelect = document.getElementById('cursor-fx-select');
+const fxDensityButtons = document.getElementById('fx-density-buttons');
 
 
 /**
  * Changes the application's visual theme.
  * It works by removing any existing theme class from the `<body>` tag
  * and then adding the new one (e.g., 'dark-theme', 'sepia-theme').
- * The actual colors and styles for each theme are defined in the CSS files.
+ * The actual colors for UI components are defined in themes.css.
  * @param {string} themeName The name of the theme to apply ('light', 'dark', 'sepia').
  */
 function updateTheme(themeName) {
-    // First, clear any theme class that might already be there.
-    document.body.className = ''; // Clear all theme classes
+    // Preserve background and other utility classes, only remove theme classes
+    const classes = document.body.className.split(' ').filter(c => !c.endsWith('-theme'));
+    document.body.className = classes.join(' ');
+
     if (themeName && themeName !== 'light') {
         document.body.classList.add(themeName + '-theme');
     }
     themeSelect.value = themeName;
 }
 
+/**
+ * Updates the body's background. It can be the theme's default or a custom one.
+ * @param {HTMLSelectElement} selectElement The background <select> element itself.
+ */
+function updateBackground(selectElement) {
+    let selectedOption = selectElement.options[selectElement.selectedIndex];
+
+    // If no option is selected (e.g., due to a stale value in localStorage),
+    // gracefully default to the first option to prevent errors.
+    if (!selectedOption) {
+        selectElement.selectedIndex = 0;
+        selectedOption = selectElement.options[0];
+    }
+
+    const bgValue = selectedOption.value;
+    const isDark = selectedOption.dataset.isDark === 'true';
+
+    // Reset styles first
+    document.body.style.backgroundImage = '';
+    document.body.classList.remove('image-background', 'dark-image-background');
+
+    if (bgValue === 'default') {
+        // For default, do nothing extra. The theme's --bg-main will be used by the CSS.
+    } else {
+        // For images, apply the URL directly and add the helper classes.
+        document.body.style.backgroundImage = `url('${bgValue}')`;
+        document.body.classList.add('image-background');
+        if (isDark) {
+            document.body.classList.add('dark-image-background');
+        }
+    }
+    backgroundSelect.value = bgValue;
+}
 /**
  * A helper function to close the settings panel if the user clicks anywhere
  * outside of it. This provides an intuitive way to dismiss the panel.
@@ -77,16 +114,21 @@ function closeSettingsPanel() {
  */
 function applySavedSettings() {
     // Read each setting from localStorage, providing a sensible default if not found.
-    const savedTheme = localStorage.getItem('appTheme');
+    const savedTheme = localStorage.getItem('appTheme') || 'light';
+    const savedBackground = localStorage.getItem('appBackground') || 'default';
     const savedBengaliFont = localStorage.getItem('bengaliFont') || "'Amiri', serif";
     const savedArabicFont = localStorage.getItem('arabicFont') || "'Noto Naskh Arabic', serif";
     let savedFx = localStorage.getItem('backgroundFx') || 'sparkles';
-    const savedFxDensity = localStorage.getItem('backgroundFxDensity') || 'medium';
-    const savedMouseTrail = localStorage.getItem('mouseTrail') === 'true';
-    const mouseTrailToggleContainer = mouseTrailToggle.closest('.setting-item');
+    const savedCursorFx = localStorage.getItem('cursorFx') || 'none';
+    const savedFxDensity = localStorage.getItem('particleDensity') || 'medium';
 
-    // Apply the saved theme.
-    updateTheme(savedTheme || 'light');
+    // Apply settings
+    updateTheme(savedTheme);
+    // To apply the saved background, we first set the dropdown's value, then call updateBackground
+    // so it can read the correct option's data attributes.
+    backgroundSelect.value = savedBackground;
+    updateBackground(backgroundSelect);
+
 
     // Apply the saved fonts by setting CSS variables on the root element.
     document.documentElement.style.setProperty('--font-bengali', savedBengaliFont);
@@ -102,20 +144,24 @@ function applySavedSettings() {
     }
 
     fxSelect.value = savedFx;
-    fxDensitySelect.value = savedFxDensity;
+    cursorFxSelect.value = savedCursorFx;
     setActiveFx(savedFx, savedFxDensity);
 
-    // If the background effect is 'none', the mouse trail toggle should be disabled.
-    if (savedFx === 'none') {
-        mouseTrailToggle.disabled = true;
-        if (mouseTrailToggleContainer) mouseTrailToggleContainer.style.opacity = '0.5';
+    // Apply saved cursor effect
+    if (savedCursorFx === 'fireflies') {
+        firefliesFx.start();
+    } else if (savedCursorFx === 'bouncing-balls') {
+        bouncingBallsFx.start();
     }
 
-    // Apply saved mouse trail setting
-    mouseTrailToggle.checked = savedMouseTrail;
-    if (savedMouseTrail && savedFx !== 'none') {
-        firefliesFx.start();
-    }
+    // Apply saved density
+    const densityButtons = fxDensityButtons.querySelectorAll('button');
+    densityButtons.forEach(button => {
+        button.classList.remove('active');
+        if (button.dataset.density === savedFxDensity) {
+            button.classList.add('active');
+        }
+    });
 }
 
 /**
@@ -142,6 +188,11 @@ export function initSettings() {
         localStorage.setItem('appTheme', newTheme); // ...and save the choice.
     });
 
+    // When the user chooses a new background...
+    backgroundSelect.addEventListener('change', (e) => {
+        updateBackground(e.target); // e.target is the <select> element
+        localStorage.setItem('appBackground', e.target.value); // Save the new value
+    });
     // When the user chooses a new Bengali font...
     bengaliFontSelect.addEventListener('change', (e) => {
         document.documentElement.style.setProperty('--font-bengali', e.target.value);
@@ -154,45 +205,41 @@ export function initSettings() {
         localStorage.setItem('arabicFont', e.target.value);
     });
 
-    // When the user changes the background effect...
+    // When the user changes the particle effect...
     fxSelect.addEventListener('change', (e) => {
         const newFx = e.target.value;
-        const currentDensity = fxDensitySelect.value;
+        const currentDensity = localStorage.getItem('particleDensity') || 'medium';
         setActiveFx(newFx, currentDensity);
         localStorage.setItem('backgroundFx', newFx);
+    });
 
-        const mouseTrailToggleContainer = mouseTrailToggle.closest('.setting-item');
+    // When the user changes the cursor effect...
+    cursorFxSelect.addEventListener('change', (e) => {
+        const newCursorFx = e.target.value;
+        localStorage.setItem('cursorFx', newCursorFx);
 
-        // If the effect is 'none', disable the mouse trail option.
-        if (newFx === 'none') {
-            firefliesFx.stop();
-            mouseTrailToggle.disabled = true;
-            if (mouseTrailToggleContainer) mouseTrailToggleContainer.style.opacity = '0.5';
-        } else {
-            if (mouseTrailToggle.checked) {
-                firefliesFx.start();
-            }
-            mouseTrailToggle.disabled = false;
-            if (mouseTrailToggleContainer) mouseTrailToggleContainer.style.opacity = '1';
+        // Stop all cursor effects first
+        firefliesFx.stop();
+        bouncingBallsFx.stop();
+
+        // Then start the selected one
+        if (newCursorFx === 'fireflies') {
+            firefliesFx.start();
+        } else if (newCursorFx === 'bouncing-balls') {
+            bouncingBallsFx.start();
         }
     });
 
-    // When the user changes the density of the background effect...
-    fxDensitySelect.addEventListener('change', (e) => {
-        const newDensity = e.target.value;
-        const currentFx = fxSelect.value;
-        setActiveFx(currentFx, newDensity);
-        localStorage.setItem('backgroundFxDensity', newDensity);
-    });
+    // When the user clicks a density button...
+    fxDensityButtons.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            const newDensity = e.target.dataset.density;
+            fxDensityButtons.querySelector('.active')?.classList.remove('active');
+            e.target.classList.add('active');
 
-    // When the user toggles the mouse trail effect on or off...
-    mouseTrailToggle.addEventListener('change', (e) => {
-        const isEnabled = e.target.checked;
-        localStorage.setItem('mouseTrail', isEnabled);
-        if (isEnabled && fxSelect.value !== 'none') {
-            firefliesFx.start();
-        } else {
-            firefliesFx.stop();
+            const currentFx = fxSelect.value;
+            setActiveFx(currentFx, newDensity);
+            localStorage.setItem('particleDensity', newDensity);
         }
     });
 }
