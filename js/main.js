@@ -49,17 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
                  h3.id = headingId; // The scroll target is the visible H3
  
                  const subLi = document.createElement('li');
-                 const fullTitle = h2.textContent.trim();
-                 const parts = fullTitle.split(' - ');
- 
-                 // If the title contains " - ", wrap the Arabic part in a span for styling
-                 if (parts.length > 1) {
-                     const bengaliPart = parts.shift(); // The first part is Bengali
-                     const arabicPart = parts.join(' - '); // The rest is Arabic
-                     subLi.innerHTML = `${bengaliPart} - <span class="nav-arabic">${arabicPart}</span>`;
-                 } else {
-                     subLi.textContent = fullTitle; // Fallback for titles without a separator
-                 }
+                 const fullTitle = h2.textContent.trim(); 
+
+                 // Find and wrap only the Arabic character sequences with the .nav-arabic class.
+                 // This is more precise than splitting by '-'.
+                 const arabicSequenceRegex = /([\u0600-\u06FF\s]+)/g;
+                 subLi.innerHTML = fullTitle.replace(arabicSequenceRegex, (match) => {
+                    // Only wrap if the match contains more than just whitespace.
+                    if (match.trim() === '') return match;
+                    return `<span class="nav-arabic">${match}</span>`;
+                 });
  
                  // As requested, remove the H2 from the main content body
                  h2.remove();

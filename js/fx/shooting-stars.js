@@ -90,24 +90,22 @@ class Star {
 
     draw() {
         ctx.fillStyle = this.color;
-        if (this.isShootingStar) {
-            ctx.globalAlpha = this.life / this.maxLife;
+        let finalOpacity;
 
+        if (this.isShootingStar) {
             // Draw the trail
             for (let i = 0; i < this.trail.length; i++) {
                 const segment = this.trail[i];
-                const segmentAlpha = (i / this.trail.length) * (this.life / this.maxLife);
-                ctx.globalAlpha = segmentAlpha;
+                ctx.globalAlpha = (i / this.trail.length) * (this.life / this.maxLife);
                 ctx.beginPath();
                 ctx.arc(segment.x, segment.y, this.size * (i / this.trail.length), 0, Math.PI * 2);
                 ctx.fill();
             }
-
-            // Draw the head of the star
-            ctx.globalAlpha = this.life / this.maxLife;
+            finalOpacity = this.life / this.maxLife;
         } else {
-            ctx.globalAlpha = this.opacity;
+            finalOpacity = this.opacity;
         }
+        ctx.globalAlpha = finalOpacity;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();

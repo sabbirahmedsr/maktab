@@ -27,6 +27,7 @@ class Particle {
         this.x += this.speedX;
         this.y += this.speedY;
 
+        // The animation lifecycle is now the same for all particles, regardless of position.
         if (this.isGrowing) {
             if (this.size < this.maxSize) this.size += 0.01; // Slower grow speed
             else this.isGrowing = false;
@@ -48,6 +49,7 @@ class Particle {
     draw() {
         ctx.fillStyle = this.color;
         ctx.beginPath();
+        // The size check is handled in update(), so we just draw.
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
     }

@@ -68,8 +68,13 @@ export function openLetterModal(letter) {
 
     if (letter.length > 1) {
         // --- Combined Letter View ---
-        // For combined letters, show the full composition equation
-        letterModalBody.textContent = `${letter.split('').join(' + ')} = ${letter}`;
+        // For complex words, strip diacritics for the "equation" part.
+        
+        // This regex matches common Arabic diacritics (harkat, sukun, shadda, etc.).
+        const diacriticsRegex = /[\u064B-\u065F\u0640]/g;
+        const mainLetters = letter.replace(diacriticsRegex, '');
+
+        letterModalBody.textContent = `${mainLetters.split('').join(' + ')} = ${letter}`;
     } else {
         // --- Single Letter View ---
         letterModalBody.classList.add('single-letter-view');

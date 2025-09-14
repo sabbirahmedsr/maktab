@@ -140,7 +140,7 @@ body {
 .nav-arabic {
     font-family: var(--font-arabic);
     font-weight: 700; /* Make it bold */
-    font-size: 1.1em; /* Make it slightly larger than the surrounding text */
+    font-size: 1.2em; /* Make it slightly larger than the surrounding text */
 }
 
 #chapter-list .sub-chapter-list li:hover {
@@ -257,6 +257,17 @@ body {
     transform: translateY(-5px) scale(1.1); /* More float and bigger size */
     box-shadow: 6px 6px 12px rgba(0,0,0,0.2); /* Deeper shadow for float effect */
     z-index: 10; /* Ensure it floats above other elements */
+}
+
+/* Style for inline code blocks, used for non-interactive Arabic letters */
+#markdown-content code {
+    font-family: var(--font-arabic);
+    font-weight: 700; /* Make it bold */
+    font-size: 1.8em; /* Make it larger than surrounding Bengali text */
+    background-color: transparent; /* Remove default code background */
+    color: inherit; /* Use the parent's text color */
+    padding: 0 0.1em; /* Minimal padding */
+    border-radius: 4px;
 }
 
 /* ==========================================================================
@@ -501,10 +512,10 @@ body {
 /* Container for the multi-language letter names */
 .single-letter-view .letter-names-group {
     position: absolute;      /* Take names out of the layout flow */
-    left: 0;                 /* Position on the far left */
+    right: 0;                /* Position on the far right */
     top: 50%;                /* Vertically center */
     transform: translateY(-50%); /* Fine-tune vertical centering */
-    text-align: left;
+    text-align: right;
 }
 
 /* Style for each individual name */

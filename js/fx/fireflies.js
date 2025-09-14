@@ -121,7 +121,24 @@ function animate() {
     animationFrameId = requestAnimationFrame(animate);
 }
 
+// A list of selectors for UI elements over which the effect should be disabled for performance and usability.
+const noDrawSelectors = [
+    '#sidebar',
+    '#settings-panel',
+    '#letter-modal-container',
+    '.content-card', // Disable effect over content cards, but not the main content background.
+    'select',
+    'input',
+    'a'
+];
+
 const handleMouseMove = (e) => {
+    // Check if the cursor is hovering over a designated "no-draw" zone.
+    const isOverNoDrawZone = noDrawSelectors.some(selector => e.target.closest(selector));
+    if (isOverNoDrawZone) {
+        return; // Do not create particles if hovering over a card or interactive element.
+    }
+
     mouseX = e.clientX;
     mouseY = e.clientY;
 

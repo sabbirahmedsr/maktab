@@ -45,7 +45,8 @@ function wrapArabicLetters(element) {
                 });
                 element.replaceChild(fragment, node);
             }
-        } else if (node.nodeType === 1) { // Element node
+        } else if (node.nodeType === 1 && node.tagName.toLowerCase() !== 'code') { 
+            // Element node, but ignore content inside <code> tags
             wrapArabicLetters(node); // Recurse into child elements
         }
     });
