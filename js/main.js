@@ -30,49 +30,66 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {string} filename - The filename of the chapter for unique IDs.
      */
     function buildSubChapterNav(contentContainer, chapterLi, filename) {
-        const existingSubList = chapterLi.querySelector('.sub-chapter-list');
-        if (existingSubList) existingSubList.remove();
-
-        const headings = contentContainer.querySelectorAll('h3');
-        if (headings.length > 0) {
-            const subChapterList = document.createElement('ul');
-            chapterLi.classList.add('has-sub-chapters');
-            subChapterList.className = 'sub-chapter-list collapsed';
-
-            headings.forEach((h3, index) => {
-                const headingId = `sub-heading-${filename}-${index}`;
-                h3.id = headingId;
-                const subLi = document.createElement('li');
-                subLi.textContent = h3.textContent.replace(':', '').trim();
-                
-                subLi.addEventListener('click', (e) => {
-                    e.stopPropagation();
-
-                    const targetHeading = document.getElementById(headingId);
-                    const targetCard = targetHeading.closest('.content-card');
-                    
-                    if (targetCard) {
-                        // Calculate the position to scroll to.
-                        // targetCard.offsetTop gives the position relative to its parent (#markdown-content).
-                        // We subtract the main content's top padding to leave a gap at the top.
-                        const mainContentPaddingTop = parseFloat(getComputedStyle(mainContent).paddingTop);
-                        const scrollToPosition = targetCard.offsetTop - mainContentPaddingTop;
-
-                        mainContent.scrollTo({ top: scrollToPosition, behavior: 'smooth' });
-                        
-                        targetCard.classList.remove('pulse-once');
-                        void targetCard.offsetWidth; // Force reflow to restart animation
-                        targetCard.classList.add('pulse-once');
-                        targetCard.addEventListener('animationend', () => targetCard.classList.remove('pulse-once'), { once: true });
-                    } else {
-                        // Fallback if no card is found, though unlikely
-                        targetHeading.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                });
-                subChapterList.appendChild(subLi);
-            });
-            chapterLi.appendChild(subChapterList);
-        }
+         const existingSubList = chapterLi.querySelector('.sub-chapter-list');
+         if (existingSubList) existingSubList.remove();
+ 
+         const cards = contentContainer.querySelectorAll('.content-card');
+         const subChapterList = document.createElement('ul');
+         subChapterList.className = 'sub-chapter-list collapsed';
+         let hasSubChapters = false;
+ 
+         cards.forEach((card, index) => {
+             const h2 = card.querySelector('h2');
+             const h3 = card.querySelector('h3');
+ 
+             // New system: Use H2 for nav title, H3 for content title/scroll target.
+             if (h2 && h3) {
+                 hasSubChapters = true;
+                 const headingId = `sub-heading-${filename}-${index}`;
+                 h3.id = headingId; // The scroll target is the visible H3
+ 
+                 const subLi = document.createElement('li');
+                 const fullTitle = h2.textContent.trim();
+                 const parts = fullTitle.split(' - ');
+ 
+                 // If the title contains " - ", wrap the Arabic part in a span for styling
+                 if (parts.length > 1) {
+                     const bengaliPart = parts.shift(); // The first part is Bengali
+                     const arabicPart = parts.join(' - '); // The rest is Arabic
+                     subLi.innerHTML = `${bengaliPart} - <span class="nav-arabic">${arabicPart}</span>`;
+                 } else {
+                     subLi.textContent = fullTitle; // Fallback for titles without a separator
+                 }
+ 
+                 // As requested, remove the H2 from the main content body
+                 h2.remove();
+ 
+                 subLi.addEventListener('click', (e) => {
+                     e.stopPropagation();
+ 
+                     // The target for scrolling and highlighting is the card containing the H3
+                     const targetCard = document.getElementById(headingId)?.closest('.content-card');
+ 
+                     if (targetCard) {
+                         const mainContentPaddingTop = parseFloat(getComputedStyle(mainContent).paddingTop);
+                         const scrollToPosition = targetCard.offsetTop - mainContentPaddingTop;
+ 
+                         mainContent.scrollTo({ top: scrollToPosition, behavior: 'smooth' });
+ 
+                         targetCard.classList.remove('pulse-once');
+                         void targetCard.offsetWidth; // Force reflow to restart animation
+                         targetCard.classList.add('pulse-once');
+                         targetCard.addEventListener('animationend', () => targetCard.classList.remove('pulse-once'), { once: true });
+                     }
+                 });
+                 subChapterList.appendChild(subLi);
+             }
+         });
+ 
+         if (hasSubChapters) {
+             chapterLi.classList.add('has-sub-chapters');
+             chapterLi.appendChild(subChapterList);
+         }
     }
 
 

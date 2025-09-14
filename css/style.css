@@ -4,6 +4,7 @@
 
 :root {
     /* --- Light Theme (Default) --- */
+    --font-ui: 'Poppins', sans-serif;
     --font-bengali: 'Amiri', serif;
     --font-arabic: 'Noto Naskh Arabic', serif;
 
@@ -29,7 +30,7 @@
 
 body {
     display: flex;
-    font-family: var(--font-bengali);
+    font-family: var(--font-ui);
     margin: 0;
     height: 100vh;
     background-color: var(--bg-main);
@@ -84,6 +85,7 @@ body {
 #chapter-list li {
     cursor: pointer;
     border-radius: 4px;
+    font-family: var(--font-bengali);
     margin-bottom: 5px;
     border-bottom: 1px solid var(--sidebar-separator);
     transition: background-color 0.3s; /* Restore transition for parent chapters */
@@ -94,6 +96,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0.8em 0.6em;
+    font-size: 1.05em; /* Slightly increase main chapter font size */
 }
 
 .expand-icon {
@@ -126,11 +129,18 @@ body {
 
 .sub-chapter-list li {
     padding: 0.5em 0.6em;
-    font-size: 0.9em;
+    font-size: 0.95em; /* Slightly increase sub-chapter font size */
     border-bottom: none;
     border-radius: 4px;
     margin-right: 4px;
     transition: none !important; /* Explicitly disable transitions for sub-chapters */
+}
+
+/* Style for the Arabic text within the sub-nav */
+.nav-arabic {
+    font-family: var(--font-arabic);
+    font-weight: 700; /* Make it bold */
+    font-size: 1.1em; /* Make it slightly larger than the surrounding text */
 }
 
 #chapter-list .sub-chapter-list li:hover {
@@ -178,9 +188,10 @@ body {
 }
 
 #markdown-content {
-    max-width: 800px;
+    max-width: 860px;
     margin: 0 auto;
     line-height: 1.9;
+    font-family: var(--font-bengali);
     font-size: 1.2rem;
 }
 
@@ -234,7 +245,7 @@ body {
     border-radius: 8px;
     box-shadow: 3px 3px 6px rgba(0,0,0,0.15);
     font-family: var(--font-arabic);
-    font-size: 2.5rem; /* Increased letter size for readability */
+    font-size: 3rem; /* Increased letter size for readability */
     font-weight: 700; /* Ensured boldest weight */
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -318,19 +329,19 @@ body {
 #settings-panel {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 320px;
     height: 100%;
     background-color: var(--bg-card);
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
     z-index: 2000;
     transform: translateX(0);
     transition: transform 0.4s ease-in-out;
-    border-left: 1px solid var(--border-card);
+    border-right: 1px solid var(--border-card);
 }
 
 #settings-panel.collapsed {
-    transform: translateX(100%);
+    transform: translateX(-100%);
 }
 
 #settings-header {
@@ -450,7 +461,7 @@ body {
 
 /* Default view for combined letter "equations" */
 #letter-modal-body:not(.single-letter-view) {
-    font-size: 8rem;
+    font-size: 8rem; /* Reverted size */
     padding: 0.5em 1.5em; /* Adjust padding to make the box a bit smaller */
 }
 
@@ -459,13 +470,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3.5em; /* Further increased gap for better vertical separation */
+    gap: 3.5em; /* Reverted gap */
     padding: 0 1em; /* Add side padding */
 }
 
 /* The large, standalone letter at the top */
 .single-letter-view .single-letter-display {
-    font-size: 10rem; /* Reduced size */
+    font-size: 10rem; /* Reverted size */
     line-height: 1;
 }
 
@@ -487,7 +498,7 @@ body {
 
 /* Individual combination example cards */
 .single-letter-view .example {
-    font-size: 5rem; /* Reduced size */
+    font-size: 5rem; /* Reverted size */
     padding: 0.2em 0.4em;
     background-color: var(--bg-arabic-card);
     border: 1px solid var(--accent-gold-dark);
@@ -496,7 +507,7 @@ body {
 
 /* Style for the positional form example (initial, medial, final) */
 .single-letter-view .positional-form-example {
-    font-size: 5rem; /* Reduced size */
+    font-size: 5rem; /* Reverted size */
     padding: 0.2em 0.6em;
     background-color: var(--bg-arabic-card);
     border: 1px solid var(--accent-gold-dark);
