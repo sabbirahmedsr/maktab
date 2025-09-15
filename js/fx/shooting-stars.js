@@ -10,7 +10,7 @@ let canvas, ctx;
 let shootingStarInterval;
 let currentDensity = 'medium';
 
-const DENSITY_MAP = { low: 150, medium: 400, high: 600, 'very-high': 900 };
+const DENSITY_MAP = { low: 400, medium: 600, high: 900, 'very-high': 1400 };
 
 class Star {
     constructor(isShootingStar = false) {

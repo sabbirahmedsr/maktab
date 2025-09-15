@@ -8,6 +8,7 @@
 import { sparklesFx } from '../fx/sparkles.js';
 import { shootingStarsFx } from '../fx/shooting-stars.js';
 import { constellationsFx } from './../fx/constellations.js';
+import { glitterFx } from '../fx/glitter.js';
 
 const canvasContainer = document.getElementById('particle-canvas');
 
@@ -16,6 +17,7 @@ const effects = {
     'sparkles': { module: sparklesFx },
     'shooting-stars': { module: shootingStarsFx },
     'constellations': { module: constellationsFx },
+    'glitter': { module: glitterFx },
 };
 
 

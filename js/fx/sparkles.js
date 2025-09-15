@@ -9,7 +9,7 @@ let animationFrameId;
 let canvas, ctx;
 let currentDensity = 'medium';
 
-const DENSITY_MAP = { low: 100, medium: 300, high: 500, 'very-high': 800 };
+const DENSITY_MAP = { low: 300, medium: 500, high: 800, 'very-high': 1200 };
 
 class Particle {
     constructor() {

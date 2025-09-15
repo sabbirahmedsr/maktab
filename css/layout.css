@@ -148,6 +148,12 @@ body {
     color: #ffffff; /* Use pure white for max contrast on hover */
 }
 
+/* Override sub-chapter hover text color for Glass theme for better contrast */
+.glass-theme #chapter-list .sub-chapter-list li:hover {
+    color: #1a1a1a; /* Use a very dark color for high contrast against the light blue hover */
+}
+
+
 /* ==========================================================================
    Main Content Area
    ========================================================================== */

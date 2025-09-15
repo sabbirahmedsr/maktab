@@ -21,6 +21,7 @@
     --border-card: #e0d8c5;
     --shadow-card: rgba(88, 62, 46, 0.1);
     --bg-arabic-card: #fffaf0;
+    --text-on-accent: var(--bg-sidebar); /* Default to sidebar bg color */
 }
 
 /* ==========================================================================

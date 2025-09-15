@@ -145,8 +145,16 @@ legend {
 }
 
 .button-group button.active {
+    /* A more vibrant "active" state for most themes */
+    background-color: var(--accent-gold-light);
+    color: var(--bg-sidebar); /* Use the dark sidebar color for high-contrast text */
+    border-color: var(--accent-gold-light);
+}
+
+/* The Glass theme already looks good with its specific accent colors, so we'll keep its original style. */
+.glass-theme .button-group button.active {
     background-color: var(--accent-gold-dark);
-    color: var(--bg-sidebar);
+    color: var(--text-on-accent);
     border-color: var(--accent-gold-dark);
 }
 
